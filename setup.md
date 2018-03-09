@@ -11,13 +11,8 @@ Data for this lesson is from the Portal Project Teaching Database -
 
 We will use the data file(s) listed below and some code excerpts for the data in this lesson.  Download these files to your computer either by clicking [this link ](https://github.com/brownsarahm/python-ecology-files/archive/master.zip), which will give you everything in a single compressed file.  You'll need to unzip this file after downloading it.
 
-Or download each file indvidually with the following links:
+If you have git installed on your computer, you can download the files from [here](https://github.com/brownsarahm/python-ecology-files/) as well
 
-- [surveys.csv](http://www.datacarpentry.org/python-ecology-lesson/data/surveys.csv)
-- [species.csv](http://www.datacarpentry.org/python-ecology-lesson/data/species.csv)
-
-Additionally, we will use some code excerpts to reduce typing and make things go
-a little faster in this limited time workshop.
 
 
 
