@@ -1,7 +1,7 @@
 ---
 title: Short Introduction to Programming in Python
-teaching: 0
-exercises: 0
+teaching: 10
+exercises: 5
 questions:
     - "What is Python?"
     - "Why should I learn Python?"
@@ -32,7 +32,7 @@ Python is an interpreted language which can be used in two ways:
 * "Interactive" Mode: It functions like an "advanced calculator" Executing
   one command at a time:
 
-```python
+~~~
 user:host:~$ python
 Python 3.5.1 (default, Oct 23 2015, 18:05:06)
 [GCC 4.8.3] on linux2
@@ -41,15 +41,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 4
 >>> print("Hello World")
 Hello World
-```
+~~~
+{: .language-python}
 
 * "Scripting" Mode: Executing a series of "commands" saved in text file,
   usually with a `.py` extension after the name of your file:
 
-```bash
+~~~
 user:host:~$ python my_script.py
 Hello World
-```
+~~~
+{: .bash}
 
 ## Jupyter Notebooks
 
@@ -68,7 +70,7 @@ directory structure, however, that is not our focus today.
 
 
 
-### Extra notebook Magics to faciliate short time
+### Extra notebook Magics to facilitate short time
 This is a modification of the regular Data Carpentry Python Ecology Lessons,
 designed to be able to use only 90 minutes total and still get to some interesting
 activities, so we will use some extra jupyter notbeook magic this lesson includes
@@ -76,9 +78,10 @@ the content and then we can work from that.
 
 First, we'll use the pycat magic to show some hints while we explore jupyter notbeooks a little more.
 
-```python
-%pycat ../code/notebook_hints.md
-```
+~~~
+%pycat code/notebook_hints.md
+~~~
+{: .language-python}
 
 The main magic that we will use is called `load`. It allows us to pull in excerpts
 of code to the notebook.  In research, this might be useful if you have common
@@ -86,27 +89,22 @@ setup things that you do not want or need to call as a function, but this is
 possibly most for exactly this purpose, teaching, live. We'll use it here, so we
 can go a little faster and for some activities.
 
-
-The main magic that we will use is called `load`. It allows us to pull in excerpts
-of code to the notebook.  In research, this might be useful if you have common
-setup things that you do not want or need to call as a function, but this is
-possibly most for exactly this purpose, teaching, live. We'll use it here, so we
-can go a little faster and for some activities.
-
-```python
-%load ../code/example.py
-```
+~~~
+%load code/example.py
+~~~
+{: .language-python}
 
 Then when we run the cell (shit + enter). it comments that line out and adds the
 content of the file `example.py`
 
-```python
-# %load ../code/example.py
+~~~
+# %load code/example.py
 a = 4
 b = 3
 
 c = a**2 + b**2
-```
+~~~
+{: .language-python}
 
 Also, we learned what a comment is: a line of python code starting with a `#`
 will not run, so if we run the cell above, all it does is the other lines, it doesn't
@@ -114,13 +112,15 @@ reload the file.  This cell won't actually output anything, but we can use anoth
 jupyter notebook feature to check what it did. Any variable on the last line of
 a cell will be printed - in a nice format, often.
 
-```python
+~~~
 c
-```
+~~~
+{: .language-python}
 
 ```
-9
-```
+25
+~~~
+{: .output}
 
 If we want to correct this to actually be pythagorean theorem, we will we can add
 the sqrt function, but we'll get an error, because that's not a built in function

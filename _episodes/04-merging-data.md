@@ -21,12 +21,15 @@ DataFrames](http://pandas.pydata.org/pandas-docs/stable/merging.html) including
 To work through the examples below, we first need to load the species and
 surveys files into pandas DataFrames. In iPython:
 
-```python
+~~~
 import pandas as pd
 surveys_df = pd.read_csv("data/surveys.csv",
                          keep_default_na=False, na_values=[""])
 surveys_df
+~~~
+{: .language-python}
 
+~~~
        record_id  month  day  year  plot species  sex  hindfoot_length weight
 0              1      7   16  1977     2      NA    M               32  NaN
 1              2      7   16  1977     3      NA    M               33  NaN
@@ -41,9 +44,15 @@ surveys_df
 35548      35549     12   31  2002     5     NaN  NaN              NaN  NaN
 
 [35549 rows x 9 columns]
+~~~
 
+~~~
 species_df = pd.read_csv("data/species.csv",
                          keep_default_na=False, na_values=[""])
+~~~
+{: .language-python}
+
+~~~
 species_df
   species_id             genus          species     taxa
 0          AB        Amphispiza        bilineata     Bird
@@ -59,7 +68,8 @@ species_df
 53         ZM           Zenaida         macroura     Bird
 
 [54 rows x 4 columns]
-```
+~~~
+{: .output}
 
 Take note that the `read_csv` method we used can take some additional options which
 we didn't use previously. Many functions in python have a set of options that
@@ -72,8 +82,8 @@ empty values in our CSV to NaN `keep_default_na=False, na_values=[""]`.
 We can use the `concat` function in Pandas to append either columns or rows from
 one DataFrame to another.  The data we have been working with is only up to 1999.  There'a another file surveys2000.csv that has data starting in 2000.  Let's combine them
 
-```python
-# %load code/concat.py
+~~~
+%load code/concat.py
 # read in another csv file
 surveys_2000 = pd.read_csv('data/surveys2000.csv')
 
@@ -82,7 +92,8 @@ surveys_all = pd.concat(surveys_df , surveys_2000], axis=0)
 
 # save the whole dataset as one surveyall.csv
 surveys_all.to_csv()
-```
+~~~
+{: .language-python}
 
 When we concatenate DataFrames, we need to specify the axis. `axis=0` tells
 Pandas to stack the second DataFrame under the first one. It will automatically
@@ -93,13 +104,14 @@ same columns and associated column format in both datasets. When we stack
 horizonally, we want to make sure what we are doing makes sense (ie the data are
 related in some way).
 
-```python
+~~~
 # Stack the DataFrames on top of each other
 vertical_stack = pd.concat([survey_sub, survey_sub_last10], axis=0)
 
 # Place the DataFrames side by side
 horizontal_stack = pd.concat([survey_sub, survey_sub_last10], axis=1)
-```
+~~~
+{: .language-python}
 
 ### Row Index Values and Concat
 Have a look at the `vertical_stack` dataframe? Notice anything unusual?
@@ -114,19 +126,21 @@ save it to a different folder by adding the foldername and a slash to the file
 `vertical_stack.to_csv('foldername/out.csv')`. We use the 'index=False' so that
 pandas doesn't include the index number for each line.
 
-```python
+~~~
 # Write DataFrame to CSV
 vertical_stack.to_csv('data_output/out.csv', index=False)
-```
+~~~
+{: .language-python}
 
 Check out your working directory to make sure the CSV wrote out properly, and
 that you can open it! If you want, try to bring it back into python to make sure
 it imports properly.
 
-```python
+~~~
 # For kicks read our output back into python and make sure all looks good
 new_output = pd.read_csv('data_output/out.csv', keep_default_na=False, na_values=[""])
-```
+~~~
+{: .language-python}
 
 # Joining DataFrames
 
@@ -166,15 +180,16 @@ To better understand joins, let's grab the first 10 lines of our data as a
 subset to work with. We'll use the `.head` method to do this. We'll also read
 in a subset of the species table.
 
-```python
-# % load merge_imports
+~~~
+%load code/merge_imports
 # split these and view the first few rows of each
 surveys_df = pd.read_csv("data/surveys.csv",
                          keep_default_na=False, na_values=[""])
 species_df = pd.read_csv("data/species.csv",
                          keep_default_na=False, na_values=[""])
 
-```
+~~~
+{: .language-python}
 
 In this example, `species_sub` is the lookup table containing genus, species, and
 taxa names that we want to join with the data in `survey_sub` to produce a new
@@ -191,7 +206,7 @@ the same name that also contain the same data. If we are less lucky, we need to
 identify a (differently-named) column in each DataFrame that contains the same
 information.
 
-```python
+~~~
 >>> species_sub.columns
 
 Index([u'species_id', u'genus', u'species', u'taxa'], dtype='object')
@@ -200,7 +215,8 @@ Index([u'species_id', u'genus', u'species', u'taxa'], dtype='object')
 
 Index([u'record_id', u'month', u'day', u'year', u'plot_id', u'species_id',
        u'sex', u'hindfoot_length', u'weight'], dtype='object')
-```
+~~~
+{: .language-python}
 
 In our example, the join key is the column containing the two-letter species
 identifier, which is called `species_id`.
@@ -226,7 +242,8 @@ page](http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/) is below:
 The pandas function for performing joins is called `merge` and an Inner join is
 the default option:  
 
-```python
+~~~
+%load code/merge
 merged_inner = pd.merge(left=survey_sub,right=species_sub, left_on='species_id', right_on='species_id')
 # In this case `species_id` is the only column name in  both dataframes, so if we skippd `left_on`
 # And `right_on` arguments we would still get the same result
@@ -234,7 +251,8 @@ merged_inner = pd.merge(left=survey_sub,right=species_sub, left_on='species_id',
 # What's the size of the output data?
 merged_inner.shape
 merged_inner
-```
+~~~
+{: .language-python}
 
 **OUTPUT:**
 
@@ -258,7 +276,8 @@ merged_inner
 5     NaN   Dipodomys  merriami  Rodent  
 6     NaN   Dipodomys  merriami  Rodent  
 7     NaN  Peromyscus  eremicus  Rodent  
-```
+~~~
+{: .output}
 
 The result of an inner join of `survey_sub` and `species_sub` is a new DataFrame
 that contains the combined set of columns from `survey_sub` and `species_sub`. It
@@ -307,13 +326,16 @@ have values for the join key(s) in the `left` DataFrame.
 A left join is performed in pandas by calling the same `merge` function used for
 inner join, but using the `how='left'` argument:
 
-```python
+~~~
 merged_left = pd.merge(left=survey_sub,right=species_sub, how='left', left_on='species_id', right_on='species_id')
 
 merged_left
+~~~
+{: .language-python}
+
 
 **OUTPUT:**
-
+~~~
    record_id  month  day  year  plot_id species_id sex  hindfoot_length  \
 0          1      7   16  1977        2         NL   M               32   
 1          2      7   16  1977        3         NL   M               33   
@@ -337,7 +359,8 @@ merged_left
 7     NaN   Dipodomys  merriami  Rodent  
 8     NaN   Dipodomys  merriami  Rodent  
 9     NaN         NaN       NaN     NaN  
-```
+~~~
+{: .output}
 
 The result DataFrame from a left join (`merged_left`) looks very much like the
 result DataFrame from an inner join (`merged_inner`) in terms of the columns it
@@ -347,7 +370,7 @@ number of rows** as the original `survey_sub` DataFrame. When we inspect
 come from `species_sub` (i.e., `species_id`, `genus`, and `taxa`) is
 missing (they contain NaN values):
 
-```python
+~~~
 merged_left[ pd.isnull(merged_left.genus) ]
 **OUTPUT:**
    record_id  month  day  year  plot_id species_id sex  hindfoot_length  \
@@ -357,7 +380,8 @@ merged_left[ pd.isnull(merged_left.genus) ]
    weight genus species taxa  
 5     NaN   NaN     NaN  NaN  
 9     NaN   NaN     NaN  NaN
-```
+~~~
+{: .language-python}
 
 These rows are the ones where the value of `species_id` from `survey_sub` (in this
 case, `PF`) does not occur in `species_sub`.

@@ -36,13 +36,14 @@ using:
 We will continue to use the surveys dataset that we worked with in the last
 lesson. Let's reopen and read in the data again:
 
-```python
+~~~
 # Make sure pandas is loaded
 import pandas as pd
 
 # Read in the survey CSV
 surveys_df = pd.read_csv("data/surveys.csv")
-```
+~~~
+{: .language-python}
 
 ## Indexing and Slicing in Python
 
@@ -57,22 +58,24 @@ We use square brackets `[]` to select a subset of an Python object. For example,
 we can select all data from a column named `species_id` from the `surveys_df`
 DataFrame by name. There are two ways to do this:
 
-```python
+~~~
 # TIP: use the .head() method we saw earlier to make output shorter
 # Method 1: select a 'subset' of the data using the column name
 surveys_df['species_id']
 
 # Method 2: use the column name as an 'attribute'; gives the same output
 surveys_df.species_id
-```
+~~~
+{: .language-python}
 
 We can also create a new object that contains only the data within the
 `species_id` column as follows:
 
-```python
+~~~
 # Creates an object, surveys_species, that only contains the `species_id` column
 surveys_species = surveys_df['species_id']
-```
+~~~
+{: .language-python}
 
 We can pass a list of column names too, as an index to select columns in that
 order. This is useful when we need to reorganize our data.
@@ -80,7 +83,7 @@ order. This is useful when we need to reorganize our data.
 **NOTE:** If a column name is not contained in the DataFrame, an exception
 (error) will be raised.
 
-```python
+~~~
 # Select the species and plot columns from the DataFrame
 surveys_df[['species_id', 'plot_id']]
 
@@ -89,7 +92,8 @@ surveys_df[['plot_id', 'species_id']]
 
 # What happens if you ask for a column that doesn't exist?
 surveys_df['speciess']
-```
+~~~
+{: .language-python}
 
 Python tells us what type of error it is in the traceback, at the bottom it says `KeyError: 'speciess'` which means that `speciess` is not a column name (or Key in the related python data type dictionary).
 
@@ -102,10 +106,11 @@ indexing. This means that the first element in an object is located at position
 0. This is different from other tools like R and Matlab that index elements
 within objects starting at 1.
 
-```python
+~~~
 # Create a list of numbers:
 a = [1, 2, 3, 4, 5]
-```
+~~~
+{: .language-python}
 
 ![indexing diagram](../fig/slicing-indexing.svg)
 ![slicing diagram](../fig/slicing-slicing.svg)
@@ -115,23 +120,26 @@ a = [1, 2, 3, 4, 5]
 >
 > 1. What value does the code below return?
 >
->    ```python
+>    ~~~
 >    a[0]
->    ```
+>    ~~~
+>  {: .language-python}
 >
 > 2. How about this:
 >
->    ```python
+>    ~~~
 >    a[5]
->    ```
+>    ~~~
+> {: .language-python}
 >
 > 3. In the example above, calling `a[5]` returns an error. Why is that?
 >
 > 4. What about?
 >
->    ```python
+>    ~~~
 >    a[len(a)]
->    ```
+>    ~~~
+>    {: .language-python}
 {: .challenge}
 
 
@@ -143,22 +151,24 @@ DataFrame. To slice out a set of rows, you use the following syntax:
 output. The stop bound is one step BEYOND the row you want to select. So if you
 want to select rows 0, 1 and 2 your code would look like this:
 
-```python
+~~~
 # Select rows 0, 1, 2 (row 3 is not selected)
 surveys_df[0:3]
-```
+~~~
+{: .language-python}
 
 The stop bound in Python is different from what you might be used to in
 languages like Matlab and R.
 
-```python
+~~~
 # Select the first 5 rows (rows 0, 1, 2, 3, 4)
 surveys_df[:5]
 
 # Select the last element in the list
 # (the slice starts at the last element, and ends at the end of the list)
 surveys_df[-1:]
-```
+~~~
+{: .language-python}
 
 We can also reassign values within subsets of our DataFrame.
 
@@ -169,13 +179,14 @@ copying objects and the concept of referencing objects in Python.
 
 Let's start with an example:
 
-```python
+~~~
 # Using the 'copy() method'
 true_copy_surveys_df = surveys_df.copy()
 
 # Using the '=' operator
 ref_surveys_df = surveys_df
-```
+~~~
+{: .language-python}
 
 You might think that the code `ref_surveys_df = surveys_df` creates a fresh
 distinct copy of the `surveys_df` DataFrame object. However, using the `=`
@@ -190,20 +201,22 @@ DataFrame.
 Let's look at what happens when we reassign the values within a subset of the
 DataFrame that references another DataFrame object:
 
-```python
+~~~
 # Assign the value `0` to the first three rows of data in the DataFrame
 ref_surveys_df[0:3] = 0
-```
+~~~
+{: .language-python}
 
 Let's try the following code:
 
-```python
+~~~
 # ref_surveys_df was created using the '=' operator
 ref_surveys_df.head()
 
 # surveys_df is the original dataframe
 surveys_df.head()
-```
+~~~
+{: .language-python}
 
 What is the difference between these two dataframes?
 
@@ -218,21 +231,24 @@ the other will see the same changes to the reference object.
 
 - **Copy** uses the dataframe's `copy()` method
 
-  ```python
+  ~~~
   true_copy_surveys_df = surveys_df.copy()
-  ```
+  ~~~
+{: .language-python}
 - A **Reference** is created using the `=` operator
 
-  ```python
+  ~~~
   ref_surveys_df = surveys_df
-  ```
+  ~~~
+{: .language-python}
 
 Okay, that's enough of that. Let's create a brand new clean dataframe from
 the original data CSV file.
 
-```python
+~~~
 surveys_df = pd.read_csv("data/surveys.csv")
-```
+~~~
+{: .language-python}
 
 ## Slicing Subsets of Rows and Columns in Python
 
@@ -247,10 +263,11 @@ To select a subset of rows **and** columns from our DataFrame, we can use the
 `iloc` method. For example, we can select month, day and year (columns 2, 3
 and 4 if we start counting at 1), like this:
 
-```python
+~~~
 # iloc[row slicing, column slicing]
 surveys_df.iloc[0:3, 1:4]
-```
+~~~
+{: .language-python}
 
 which gives the **output**
 
@@ -259,7 +276,8 @@ which gives the **output**
 0      7   16  1977
 1      7   16  1977
 2      7   16  1977
-```
+~~~
+{: .output}
 
 Notice that we asked for a slice from 0:3. This yielded 3 rows of data. When you
 ask for 0:3, you are actually telling Python to start at index 0 and select rows
@@ -267,7 +285,7 @@ ask for 0:3, you are actually telling Python to start at index 0 and select rows
 
 Let's explore some other ways to index and select subsets of data:
 
-```python
+~~~
 # Select all columns for rows of index values 0 and 10
 surveys_df.loc[[0, 10], :]
 
@@ -276,7 +294,8 @@ surveys_df.loc[0, ['species_id', 'plot_id', 'weight']]
 
 # What happens when you type the code below?
 surveys_df.loc[[0, 10, 35549], :]
-```
+~~~
+{: .language-python}
 
 **NOTE**: Labels must be found in the DataFrame or you will get a `KeyError`.
 
@@ -289,22 +308,25 @@ will get a different result than using `iloc` to select rows 1:4.
 We can also select a specific data value using a row and
 column location within the DataFrame and `iloc` indexing:
 
-```python
+~~~
 # Syntax for iloc indexing to finding a specific data element
 dat.iloc[row, column]
-```
+~~~
+{: .language-python}
 
 In this `iloc` example,
 
-```python
+~~~
 surveys_df.iloc[2, 6]
-```
+~~~
+{: .language-python}
 
 gives the **output**
 
 ```
 'F'
-```
+~~~
+{: .output}
 
 Remember that Python indexing begins at 0. So, the index location [2, 6]
 selects the element that is 3 rows down and 7 columns over in the DataFrame.
@@ -333,13 +355,14 @@ selects the element that is 3 rows down and 7 columns over in the DataFrame.
 We can also select a subset of our data using criteria. For example, we can
 select all rows that have a year value of 2002:
 
-```python
+~~~
 surveys_df[surveys_df.year == 2002]
-```
+~~~
+{: .language-python}
 
 Which produces the following output:
 
-```python
+~~~
 record_id  month  day  year  plot_id species_id  sex  hindfoot_length  weight
 33320      33321      1   12  2002        1         DM    M     38      44
 33321      33322      1   12  2002        1         DO    M     37      58
@@ -354,19 +377,22 @@ record_id  month  day  year  plot_id species_id  sex  hindfoot_length  weight
 35548      35549     12   31  2002        5        NaN  NaN    NaN     NaN
 
 [2229 rows x 9 columns]
-```
+~~~
+{: .language-python}
 
 Or we can select all rows that do not contain the year 2002:
 
-```python
+~~~
 surveys_df[surveys_df.year != 2002]
-```
+~~~
+{: .language-python}
 
 We can define sets of criteria too:
 
-```python
+~~~
 surveys_df[(surveys_df.year >= 1980) & (surveys_df.year <= 1985)]
-```
+~~~
+{: .language-python}
 
 ### Python Syntax Cheat Sheet
 
@@ -389,9 +415,10 @@ Experiment with selecting various subsets of the "surveys" data.
 > 2. You can use the `isin` command in Python to query a DataFrame based upon a
 >   list of values as follows:
 >
->    ```python
+>    ~~~
 >    surveys_df[surveys_df['species_id'].isin([listGoesHere])]
->    ```
+>    ~~~
+>  {: .language-python}
 >
 >   Use the `isin` function to find all plots that contain particular species
 >   in the "surveys" DataFrame. How many records contain these values?
@@ -414,7 +441,7 @@ we also need to understand `BOOLEAN` objects in Python.
 
 Boolean values include `True` or `False`. For example,
 
-```python
+~~~
 # Set x to 5
 x = 5
 
@@ -423,7 +450,8 @@ x > 5
 
 # How about this?
 x == 5
-```
+~~~
+{: .language-python}
 
 When we ask Python what the value of `x > 5` is, we get `False`. This is
 because the condition,`x` is not greater than 5, is not met since `x` is equal
@@ -442,13 +470,14 @@ null (missing or NaN) data values. We can use the `isnull` method to do this.
 The `isnull` method will compare each cell with a null value. If an element
 has a null value, it will be assigned a value of  `True` in the output object.
 
-```python
+~~~
 pd.isnull(surveys_df)
-```
+~~~
+{: .language-python}
 
 A snippet of the output is below:
 
-```python
+~~~
       record_id  month    day   year plot_id species_id    sex  hindfoot_length weight
 0         False  False  False  False   False      False  False   False      True
 1         False  False  False  False   False      False  False   False      True
@@ -457,26 +486,29 @@ A snippet of the output is below:
 4         False  False  False  False   False      False  False   False      True
 
 [35549 rows x 9 columns]
-```
+~~~
+{: .language-python}
 
 To select the rows where there are null values, we can use
 the mask as an index to subset our data as follows:
 
-```python
+~~~
 # To select just the rows with NaN values, we can use the 'any()' method
 surveys_df[pd.isnull(surveys_df).any(axis=1)]
-```
+~~~
+{: .language-python}
 
 Note that the `weight` column of our DataFrame contains many `null` or `NaN`
 values. We will explore ways of dealing with this in Lesson 03.
 
 We can run `isnull` on a particular column too. What does the code below do?
 
-```python
+~~~
 # What does this do?
 empty_weights = surveys_df[pd.isnull(surveys_df['weight'])]['weight']
 print(empty_weights)
-```
+~~~
+{: .language-python}
 
 Let's take a minute to look at the statement above. We are using the Boolean
 object `pd.isnull(surveys_df['weight'])` as an index to `surveys_df`. We are
