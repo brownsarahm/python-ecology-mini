@@ -48,3 +48,20 @@ Just the order to do the loads
 %load code/species_counts
 ~~~
 {.language-python}
+
+
+# Related content
+
+For NSBE workshop
+
+Main workshop page: [http://drsmb.co/nsbe44](http://drsmb.co/nsbe44)
+
+SWC Request page: [http://drsmb.co/swcreq](http://drsmb.co/swcreq)
+
+Anaconda download page (mostly will detect your OS and serve you the right page) : http://drsmb.co/anaconda
+
+Download by .zip: [http://drsmb.co/nsbe44data](http://drsmb.co/nsbe44data)
+
+Github page for cloning: [http://drsmb.co/nsbe44git](http://drsmb.co/nsbe44git) (probably don't need it)
+
+Post workshop [http://drsmb.co/postnsbe44](http://drsmb.co/postnsbe44)
